@@ -1,0 +1,76 @@
+.box {
+  border: 1px solid rgb(49, 46, 46);
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fafafa;
+}
+
+.top-box {
+  height: 35px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.title {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.middle-box {
+  height: 100px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.description {
+  font-size: 16px;
+}
+
+.bottom-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+/* 폰트 색상 변경 */
+.option {
+  margin: 15px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  width: 10%;
+}
+
+.option:hover {
+  background-color: #f1f1f1;
+}
+
+.build {
+  background-color: orange;
+}
+
+.deploy {
+  background-color: orange;
+}
+
+.gitlab {
+  background-color: #6fcf97;
+}
+
+.jenkins {
+  background-color: #f14444;
+}
+
+.argo {
+  background-color: #bb6bd9;
+}
