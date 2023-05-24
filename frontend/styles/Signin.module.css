@@ -1,0 +1,62 @@
+ /* signinbox 전체 틀 */
+.signinbox {
+    border: 1px solid rgb(49, 46, 46);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    background-color: #fafafa;
+    max-width: 20rem;
+    margin: auto;
+    margin-top: 50px;
+  }
+
+ /* 입력칸 */
+.input{
+    border: 1px solid rgb(181, 183, 182);
+    width: 298px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+/* sign in 클릭 버튼 */
+.click{
+    text-align: center;
+    border: 1px solid rgba(41, 125, 86, 0.881);
+    background-color: #0070f3;
+    width: 298px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+/* 글자 중간에 배치 */
+.mid{
+    text-align: center;
+    color: white;
+}
+
+/* 줄 사이 공백 */
+.space{
+    height: 12px;
+}
+
+/* 계정 만드는 박스 */
+.account{
+    text-align: center;
+    border: 1px solid rgb(49, 46, 46);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    background-color: #fafafa;
+    max-width: 20rem;
+    margin: auto;
+    margin-top: 20px;
+}
+
+/* 아이콘 */
+.icon{
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    display: block;
+    margin-top: 50px;
+}
