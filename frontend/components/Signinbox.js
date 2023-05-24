@@ -1,5 +1,5 @@
-import styles from '../styles/signin.module.css';
-import BootstrapHead from "../components/BootstrapHead";
+import styles from '../styles/Signin.module.css';
+import BootstrapHead from "./BootstrapHead";
 import Link from "next/link";
 
 function box() {
