@@ -1,0 +1,38 @@
+.navbar{
+    margin-top: 20px;
+    background: #fafafa;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid rgb(49, 46, 46);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.icon{
+    width: 70px;
+    height: 70px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    margin-left: 0px;
+}
+
+.button{
+    font-size: 20px;
+    padding: 10px 8px;
+    background-color: #0070f3;
+    border: none;
+    border-radius: 10px;
+    margin-right: 30px;
+    border: 1px solid rgb(49, 46, 46);
+    color: white;
+}
+
+.button:hover {
+    background-color: #76b1f4;
+  }
+
+.button:active {
+    background-color: #76b1f4;
+  }
