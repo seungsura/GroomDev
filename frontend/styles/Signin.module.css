@@ -7,7 +7,7 @@
     background-color: #fafafa;
     max-width: 20rem;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 20px;
   }
 
  /* 입력칸 */
@@ -19,16 +19,17 @@
 }
 
 /* sign in 클릭 버튼 */
-.click{
-    text-align: center;
-    border: 1px solid rgba(41, 125, 86, 0.881);
+.submitButton{
     background-color: #0070f3;
+    color: white;
     width: 298px;
     height: 30px;
     border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 
-/* 글자 중간에 배치 */
+/* 글자 중간에 배치 & 흰색 */
 .mid{
     text-align: center;
     color: white;
@@ -52,11 +53,17 @@
     margin-top: 20px;
 }
 
-/* 아이콘 */
-.icon{
+/* 아이콘 & 글자 배치 */
+.iconWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1em;
+    margin-top: 5em;
+  }
+
+/* 아이콘 크기 */
+.icon {
     width: 70px;
     height: 70px;
-    margin: auto;
-    display: block;
-    margin-top: 50px;
-}
+  }
