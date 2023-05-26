@@ -3,7 +3,6 @@ import styles from '../styles/Signin.module.css';
 import BootstrapHead from "./BootstrapHead";
 import Link from "next/link";
 
-
 function SignInForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
