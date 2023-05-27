@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styles from '../styles/Signin.module.css';
 import BootstrapHead from "./BootstrapHead";
 import Link from "next/link";
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 function SignInForm() {
   const [username, setUsername] = useState('');
@@ -15,10 +17,35 @@ function SignInForm() {
     setPassword(e.target.value);
   };
 
-  const handleSignIn = (e) => {
-    e.preventDefault();
-  };
+const router = useRouter();
 
+const handleSignIn = (e) => {
+  e.preventDefault();
+
+  axios.post('http://192.168.0.26:8080/api/login/', { // Django 로그인 API 엔드포인트로 수정하세요.
+    username,
+    password
+  })
+  .then(res => {
+    if (res.status === 200) {
+      alert('로그인에 성공했습니다!');
+      router.push('/'); // 로그인 성공 후 리다이렉트 할 페이지로 수정하세요.
+    }
+  })
+  .catch(error => {
+    if (error.response) {
+      // 서버에서 에러 응답을 받은 경우
+      alert(`Error: ${error.response.data.error}`);
+    } else if (error.request) {
+      // 요청을 보냈지만 응답을 받지 못한 경우
+      alert('서버에서 응답이 없습니다. 다시 시도해 주세요.');
+    } else {
+      // 요청 설정 중 에러가 발생한 경우
+      alert('로그인 요청 중 에러가 발생했습니다. 다시 시도해 주세요.');
+    }
+  });
+};
+  
   return (
     <>
       <BootstrapHead/>

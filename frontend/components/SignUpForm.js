@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from '../styles/SignUp.module.css';
+import axios from 'axios';
 
 export default function SignUpForm() {
   const [username, setUsername] = useState("");
@@ -8,11 +9,24 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [team, setTeam] = useState("Developer");
 
-  const handleSignUp = e => {
+  const handleSignUp = async e => {
     e.preventDefault();
 
-    // TODO: 회원가입 로직 추가
-    // 사용자의 입력을 서버로 전송하고 회원가입 절차를 완료
+    try {
+      const response = await axios.post('http://192.168.0.26:8080/api/register/', {
+          username,
+          password,
+          name,
+          email,
+          team,
+      });
+
+      if (response.data.success) {
+          alert('User registered successfully');
+      }
+  } catch (error) {
+      console.error('There was an error!', error);
+  }
   };
 
   return (
