@@ -21,7 +21,6 @@
     margin-right: 30px;
     border: 1px solid rgb(49, 46, 46);
     color: white;
-    
 }
 
 .button:hover {
@@ -44,3 +43,50 @@
     display: flex;
     flex-direction: column;
   }
+
+
+ /* createProjectBox 전체 틀 */
+ .createProjectBox {
+    border: 1px solid rgb(49, 46, 46);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    background-color: #fafafa;
+    max-width: 20rem;
+    margin: auto;
+    margin-top: 170px;
+    z-index: 100;
+  }
+
+ /* 입력칸 */
+.input{
+    border: 1px solid rgb(181, 183, 182);
+    width: 298px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+/* 입력칸 */
+.descriptionInput{
+    border: 1px solid rgb(181, 183, 182);
+    width: 298px;
+    height: 200px;
+    border-radius: 5px;
+    text-align: start;
+}
+
+/* sign in 클릭 버튼 */
+.createButton{
+    background-color: #0070f3;
+    color: white;
+    width: 298px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* 줄 사이 공백 */
+.space{
+    height: 12px;
+}
