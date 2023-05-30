@@ -15,9 +15,14 @@ function Navbar() {
      <BootstrapHead/>
     <div>
       <div className={styles.navbar}>
-        <ul>
-        <img className={styles.icon} src="../logo.png"></img>
-        </ul>
+      <ul className={styles.logoContainer}>
+      <li>
+        <a href="/main">
+          <img className={styles.icon} src="../logo.png" alt="Logo"></img>
+          <span className={styles.logoText}>GOSU</span>
+        </a>
+      </li>
+    </ul>
         <button className={styles.button} onClick={handleClick}>Sign Out</button>
       </div>
     </div>

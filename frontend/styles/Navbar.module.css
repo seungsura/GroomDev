@@ -1,4 +1,9 @@
 .navbar{
+    /*맨 위에 4줄 페이지 상단에 고정하는 코드*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     margin-top: 20px;
     background: #fafafa;
     height: 50px;
@@ -10,17 +15,37 @@
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
+.logoContainer li {
+    list-style: none;
+  }
+
+.logoContainer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+  }
+
 .icon{
     width: 40px;
     height: 40px;
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     margin-left: 0px;
+    margin-right: 10px;
 }
+
+.logoText {
+    font-size: 25px;
+    font-weight: bold;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: black;
+  }
 
 .button{
     font-size: 15px;
-    padding: 3px 5px;
+    padding: 5px 6px;
     background-color: #0070f3;
     border: none;
     border-radius: 10px;
