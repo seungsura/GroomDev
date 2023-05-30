@@ -1,32 +1,96 @@
+import { useState } from 'react';
 import styles from '../styles/Signin.module.css';
 import BootstrapHead from "./BootstrapHead";
 import Link from "next/link";
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
-function box() {
+function SignInForm() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+const router = useRouter();
+
+const handleSignIn = (e) => {
+  e.preventDefault();
+
+  axios.post('http://192.168.0.26:8080/api/login/', { // Django 로그인 API 엔드포인트로 수정하세요.
+    username,
+    password
+  })
+  .then(res => {
+    if (res.status === 200) {
+      alert('로그인에 성공했습니다!');
+      router.push('/'); // 로그인 성공 후 리다이렉트 할 페이지로 수정하세요.
+    }
+  })
+  .catch(error => {
+    if (error.response) {
+      // 서버에서 에러 응답을 받은 경우
+      alert(`Error: ${error.response.data.error}`);
+    } else if (error.request) {
+      // 요청을 보냈지만 응답을 받지 못한 경우
+      alert('서버에서 응답이 없습니다. 다시 시도해 주세요.');
+    } else {
+      // 요청 설정 중 에러가 발생한 경우
+      alert('로그인 요청 중 에러가 발생했습니다. 다시 시도해 주세요.');
+    }
+  });
+};
+  
   return (
     <>
       <BootstrapHead/>
       {/* 아이콘 */}
-      <img className={styles.icon} src="../logo.png"></img>
+      <div className={styles.iconWrapper}>
+        <img src="/logo.png" alt="icon" className={styles.icon} />
+        <h1>Sign In</h1>
+      </div>
       {/* 전체 박스 */}
-      <div className={styles.signinbox}>
+      <form className={styles.signinbox} onSubmit={handleSignIn}>
         {/* 이름 입력받기 */}
         <div>Username</div>
-        <div><input className={styles.input} id="name"/></div>
+        <div>
+          <input
+            className={styles.input}
+            id="username"
+            value={username}
+            pattern="^[a-zA-Z0-9ㄱ-힣]+"
+            onChange={handleUsernameChange}
+            required
+          />
+        </div>
         {/* 줄 사이 공백 */}
         <div className={styles.space}></div>
         {/* 패스워드 입력받기 */}
         <div>Password</div>
-        <div><input className={styles.input}id="name"/></div>
+        <div>
+          <input
+            className={styles.input}
+            id="password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
+        </div>
         {/* 줄 사이 공백 */}
         <div className={styles.space}></div>
         {/* 로그인하는 버튼 */}
-        <div className={styles.click}><div className={styles.mid}>sign in</div></div>
-      </div>
+        <button type="submit" className={styles.submitButton}>Sign In</button>
+      </form>
       {/* 계정 만들기 */}
       <div className={styles.account}>
-        New to ?&nbsp;
-        <Link href={'/'}>
+        New to GOSU?&nbsp;
+        <Link href="/">
           Create an account.
         </Link>
       </div>
@@ -34,4 +98,4 @@ function box() {
   );
 }
 
-export default box;
+export default SignInForm;
