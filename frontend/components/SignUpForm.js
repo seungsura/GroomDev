@@ -13,7 +13,7 @@ export default function SignUpForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://192.168.0.26:8080/api/register/', {
+      const response = await axios.post('http://192.168.0.200:8080/api/register/', {
           username,
           password,
           name,
@@ -23,6 +23,7 @@ export default function SignUpForm() {
 
       if (response.data.success) {
           alert('User registered successfully');
+          window.location.href = '/';
       }
   } catch (error) {
       console.error('There was an error!', error);
@@ -38,23 +39,23 @@ export default function SignUpForm() {
       <form onSubmit={handleSignUp} className={styles.form}>
         <div className={styles.inputGroup}>
           <label htmlFor="username">ID:</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              required
+            />
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="name">Name:</label>

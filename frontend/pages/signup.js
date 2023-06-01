@@ -1,13 +1,12 @@
-import SignInForm from "../components/SignInForm";
 import SignUpForm from "../components/SignUpForm";
 import React from "react";
 
-const Home = () => {
+const signup = () => {
   return (
     <>
-      <SignInForm />
+      <SignUpForm />
     </>
   );
 }
 
-export default Home;
+export default signup;
