@@ -22,20 +22,14 @@ function SignInForm() {
   const handleSignIn = (e) => {
     e.preventDefault();
 
-    axios.post('http://192.168.0.200:8080/api/login/', { // Django 로그인 API 엔드포인트로 수정하세요.
+    axios.post('http://192.168.0.26:8080/api/login/', { // Django 로그인 API 엔드포인트로 수정하세요.
       username,
       password
     })
     .then(res => {
       if (res.status === 200) {
-        const token = res.data.token;
-        if (token) {
-          localStorage.setItem('token', token);
-          alert('로그인에 성공했습니다!');
-          router.push('/main');
-        } else {
-          alert('토큰이 반환되지 않았습니다. 다시 시도해 주세요.');
-        }
+        alert('로그인에 성공했습니다!');
+        router.push('/main');
       } else {
         alert('로그인 요청이 실패했습니다. 다시 시도해 주세요.');
       }

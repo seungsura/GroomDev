@@ -52,11 +52,8 @@ class LoginView(APIView):
             return Response({"error": "Invalid username or password"}, status=status.HTTP_403_FORBIDDEN)
 
         login(request, user)
+        return Response({"success": f"User {username} logged in"}, status=status.HTTP_200_OK)
 
-        # 토큰 생성 또는 기존 토큰 가져오기
-        token = Token.objects.get_or_create(user=user)
-
-        return Response({"token": token.key, "success": f"User {username} logged in"}, status=status.HTTP_200_OK)
 
 
 
@@ -68,6 +65,8 @@ class LoginView(APIView):
 #    return HttpResponse("successfully", status=status.HTTP_200_OK)
 
 #@login_required
+
+
 @csrf_exempt
 def logout_view(request): 
     if request.method == 'POST':

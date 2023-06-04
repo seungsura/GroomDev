@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import LoginView, RegisterView, logout_view
+from .views import LoginView, RegisterView, logout_view, check_authentication
 from django.contrib.auth import views as auth_views
-from .views import check_authentication
 
 app_name = "Groomuser"
 

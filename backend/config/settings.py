@@ -179,10 +179,10 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
-    'http://192.168.0.200',
+    'http://192.168.0.26',
 
-    'http://192.168.0.200:3000',
-    'http://192.168.0.200:8080',
+    'http://192.168.0.26:3000',
+    'http://192.168.0.26:8080',
 
     #'https://your_domain.com',  #edit after get domain name
     # add more if needed
@@ -191,7 +191,7 @@ CORS_ORIGIN_WHITELIST = (
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',
     'http://localhost:3000',
-    'http://192.168.0.200:8080',
+    'http://192.168.0.26:8080',
 ]
 
 #CORS_ORIGIN_ALLOW_ALL = True  #<- 수정필요  
