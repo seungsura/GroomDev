@@ -10,7 +10,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://192.168.0.200:8080/api/logout/', {
+      const response = await fetch('http://192.168.0.26:8080/api/logout/', {
         method: 'POST',
         credentials: 'include', // 쿠키 정보를 전송하기 위해 설정합니다.
         headers: {
