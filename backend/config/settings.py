@@ -13,6 +13,23 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv  #add .env
 
+# 세션 관련 설정
+# 세션 엔진 설정 (기본적으로 데이터베이스를 사용)
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# 세션 쿠키의 암호화에 사용되는 비밀 키
+SECRET_KEY = 'your_secret_key'
+
+# 세션 쿠키의 만료 시간 (예: 2주)
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 14
+
+# HTTPS 연결을 통해만 세션 쿠키를 전송
+SESSION_COOKIE_SECURE = True
+
+# JavaScript에서 접근하지 못하도록 세션 쿠키에 HttpOnly 속성 추가
+SESSION_COOKIE_HTTPONLY = True
+
+
 # add DIR env
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_DIR = Path(BASE_DIR).stem  #also can use Path(~).name
@@ -51,12 +68,13 @@ INSTALLED_APPS = [
 
     # local
     'Groomusers.apps.GroomusersConfig'
+    
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', #add to
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware', # 세션관리 역할
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -161,9 +179,11 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
-    'http://192.168.0.26',
-    'http://192.168.0.26:3000',
-    'http://192.168.0.26:8080',
+    'http://192.168.0.200',
+
+    'http://192.168.0.200:3000',
+    'http://192.168.0.200:8080',
+
     #'https://your_domain.com',  #edit after get domain name
     # add more if needed
 )
@@ -171,7 +191,7 @@ CORS_ORIGIN_WHITELIST = (
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',
     'http://localhost:3000',
-    'http://192.168.0.26:8080',
+    'http://192.168.0.200:8080',
 ]
 
 #CORS_ORIGIN_ALLOW_ALL = True  #<- 수정필요  
@@ -180,3 +200,22 @@ CSRF_TRUSTED_ORIGINS = [
 #CORS_ORIGIN_WHITELIST = (
 #    'http://localhost', 'http://localhost:3000'
 #)
+
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
