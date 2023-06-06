@@ -4,12 +4,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.csrf import ensure_csrf_cookie
-
 
 User = get_user_model()
 
@@ -54,7 +52,6 @@ class LoginView(APIView):
         login(request, user)
         response = Response({"success": f"User {username} logged in"}, status=status.HTTP_200_OK)
         response.set_cookie('isLoggedIn', 'true', httponly=True)
-
         return response
 
 
@@ -68,8 +65,6 @@ class LogoutView(APIView):
         return response
 
 # 인증 확인 뷰
-from rest_framework.permissions import AllowAny
-
 class CheckAuthentication(APIView):
     permission_classes = [AllowAny]
 
@@ -78,3 +73,6 @@ class CheckAuthentication(APIView):
             return Response({"message": "Authenticated"}, status=status.HTTP_200_OK)
         else:
             return Response({"message": "Not Authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse("Logout successfully", status=status.HTTP_200_OK)
+
+

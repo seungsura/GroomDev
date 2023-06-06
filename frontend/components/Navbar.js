@@ -35,6 +35,7 @@ function Navbar() {
     handleLogout();
   };
 
+  // CSRFTOKEN을 가져오는 함수 추가
   function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
