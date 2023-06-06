@@ -1,17 +1,13 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
-
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
 
 User = get_user_model()
 
@@ -54,33 +50,16 @@ class LoginView(APIView):
         login(request, user)
         return Response({"success": f"User {username} logged in"}, status=status.HTTP_200_OK)
 
-
-
-
-
-
-#@login_required(login_url='Groomuser:login')
-#def main_view(request):
-    # 로그인한 사용자만 접근할 수 있는 뷰 로직 작성
-#    return HttpResponse("successfully", status=status.HTTP_200_OK)
-
-#@login_required
-
-
-@csrf_exempt
-def logout_view(request): 
-    if request.method == 'POST':
+# 로그아웃 뷰
+class LogoutView(APIView):
+    def post(self, request, format=None):
         logout(request)
         return HttpResponse("Logout successfully", status=status.HTTP_200_OK)
-    return HttpResponse("Method Not Allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    # return redirect('Groomuser:login')
-
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def check_authentication(request):
-    # 인증된 사용자인 경우에만 응답을 반환합니다.
-    return Response({"message": "Authenticated"}, status=200)
+# 인증 확인 뷰
+class CheckAuthentication(APIView):
+    def get(self, request, format=None):
+        if request.user.is_authenticated:
+            return Response({"message": "Authenticated"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "Not Authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
