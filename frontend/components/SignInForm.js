@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/Signin.module.css';
 import BootstrapHead from "./BootstrapHead";
 import Link from "next/link";
@@ -18,6 +18,20 @@ function SignInForm() {
   };
 
   const router = useRouter();
+
+  useEffect(() => {
+    axios.get('http://192.168.0.26:8080/api/check_authentication/')
+    .then(res => {
+      if (res.status === 200) {
+        alert('이미 로그인된 상태입니다.');
+        router.push('/main');
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }, []);
+  
 
   const handleSignIn = (e) => {
     e.preventDefault();
