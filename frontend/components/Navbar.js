@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from '../styles/Navbar.module.css';
 import BootstrapHead from "../components/BootstrapHead";
@@ -10,24 +10,23 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://192.168.0.26:8080/api/logout/', {
+      const response = await fetch('http://192.168.0.200:8080/api/logout/', {
         method: 'POST',
-        credentials: 'include', // 쿠키 정보를 전송하기 위해 설정합니다.
+        credentials: 'include', // Send cookies along with the request
         headers: {
           'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
-          // X-CSRFToken 헤더 추가
-          'X-CSRFToken': getCookie('csrftoken'), 
+          'X-CSRFToken': getCookie('csrftoken'),
         },
       });
 
       if (response.ok) {
         router.push('/');
       } else {
-        console.error('로그아웃 실패');
+        console.error('Logout failed');
       }
     } catch (error) {
-      console.error('로그아웃 요청 에러:', error);
+      console.error('Logout request error:', error);
     }
   };
 
@@ -43,7 +42,6 @@ function Navbar() {
       const cookies = document.cookie.split(';');
       for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
-        // Does this cookie string begin with the name we want?
         if (cookie.substring(0, name.length + 1) === (name + '=')) {
           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
           break;
@@ -52,6 +50,29 @@ function Navbar() {
     }
     return cookieValue;
   }
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const checkAuthentication = async () => {
+      try {
+        const response = await fetch('http://192.168.0.200:8080/api/check_authentication/', {
+          credentials: 'include', // Send cookies along with the request
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data); // You can handle the response data as per your requirement
+        } else {
+          // User is not authenticated, redirect to the login page
+          router.push('/');
+        }
+      } catch (error) {
+        console.error('Authentication check error:', error);
+      }
+    };
+
+    checkAuthentication();
+  }, []);
 
   return (
     <>

@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -33,6 +33,8 @@ class RegisterView(APIView):
 
         return Response({"success": f"User {username} registered successfully"}, status=status.HTTP_201_CREATED)
 
+from django.views.decorators.csrf import csrf_exempt
+
 class LoginView(APIView):
     @csrf_exempt
     def post(self, request):
@@ -48,18 +50,29 @@ class LoginView(APIView):
             return Response({"error": "Invalid username or password"}, status=status.HTTP_403_FORBIDDEN)
 
         login(request, user)
-        return Response({"success": f"User {username} logged in"}, status=status.HTTP_200_OK)
+        response = Response({"success": f"User {username} logged in"}, status=status.HTTP_200_OK)
+        response.set_cookie('isLoggedIn', 'true', httponly=True)
+        return response
+
+
 
 # 로그아웃 뷰
 class LogoutView(APIView):
     def post(self, request, format=None):
         logout(request)
-        return HttpResponse("Logout successfully", status=status.HTTP_200_OK)
+        response = Response("Logout successfully", status=status.HTTP_200_OK)
+        response.delete_cookie('isLoggedIn')
+        return response
 
 # 인증 확인 뷰
 class CheckAuthentication(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, format=None):
-        if request.user.is_authenticated:
+        if request.COOKIES.get('isLoggedIn') == 'true':
             return Response({"message": "Authenticated"}, status=status.HTTP_200_OK)
         else:
             return Response({"message": "Not Authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse("Logout successfully", status=status.HTTP_200_OK)
+
+
