@@ -1,17 +1,15 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-from django.shortcuts import redirect, render
 
 User = get_user_model()
 
@@ -37,6 +35,8 @@ class RegisterView(APIView):
 
         return Response({"success": f"User {username} registered successfully"}, status=status.HTTP_201_CREATED)
 
+from django.views.decorators.csrf import csrf_exempt
+
 class LoginView(APIView):
     @csrf_exempt
     def post(self, request):
@@ -52,35 +52,29 @@ class LoginView(APIView):
             return Response({"error": "Invalid username or password"}, status=status.HTTP_403_FORBIDDEN)
 
         login(request, user)
-        return Response({"success": f"User {username} logged in"}, status=status.HTTP_200_OK)
+        response = Response({"success": f"User {username} logged in"}, status=status.HTTP_200_OK)
+        response.set_cookie('isLoggedIn', 'true', httponly=True)
+
+        return response
 
 
 
-
-
-
-#@login_required(login_url='Groomuser:login')
-#def main_view(request):
-    # 로그인한 사용자만 접근할 수 있는 뷰 로직 작성
-#    return HttpResponse("successfully", status=status.HTTP_200_OK)
-
-#@login_required
-
-
-@csrf_exempt
-def logout_view(request): 
-    if request.method == 'POST':
+# 로그아웃 뷰
+class LogoutView(APIView):
+    def post(self, request, format=None):
         logout(request)
-        return HttpResponse("Logout successfully", status=status.HTTP_200_OK)
-    return HttpResponse("Method Not Allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        response = Response("Logout successfully", status=status.HTTP_200_OK)
+        response.delete_cookie('isLoggedIn')
+        return response
 
-    # return redirect('Groomuser:login')
+# 인증 확인 뷰
+from rest_framework.permissions import AllowAny
 
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+class CheckAuthentication(APIView):
+    permission_classes = [AllowAny]
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def check_authentication(request):
-    # 인증된 사용자인 경우에만 응답을 반환합니다.
-    return Response({"message": "Authenticated"}, status=200)
+    def get(self, request, format=None):
+        if request.COOKIES.get('isLoggedIn') == 'true':
+            return Response({"message": "Authenticated"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "Not Authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
