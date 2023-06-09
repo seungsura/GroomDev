@@ -10,7 +10,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://192.168.0.200:8080/api/logout/', {
+      const response = await fetch('http://gosu.digital:8080/api/logout/', {
         method: 'POST',
         credentials: 'include', // Send cookies along with the request
         headers: {
@@ -54,7 +54,7 @@ function Navbar() {
     // Check if the user is authenticated
     const checkAuthentication = async () => {
       try {
-        const response = await fetch('http://192.168.0.200:8080/api/check_authentication/', {
+        const response = await fetch('http://gosu.digital:8080/api/check_authentication/', {
           credentials: 'include', // Send cookies along with the request
         });
 

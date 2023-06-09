@@ -180,6 +180,8 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
     'http://192.168.0.26',
+    'http://gosu.digital',
+    'http://gosu.digital:8080',
 
     'http://192.168.0.26:3000',
     'http://192.168.0.26:8080',
@@ -192,6 +194,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',
     'http://localhost:3000',
     'http://192.168.0.26:8080',
+    'http://gosu.digital:8080',
+
 ]
 
 #CORS_ORIGIN_ALLOW_ALL = True  #<- 수정필요  
