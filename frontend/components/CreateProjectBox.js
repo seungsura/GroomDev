@@ -1,23 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from '../styles/CreateProjectBox.module.css';
 import BootstrapHead from "./BootstrapHead";
 import Modal from "react-modal";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 function CreateProjectBox() {
-  const [name, setName] = useState('');
+  const username = Cookies.get("username");
+  const [projectname, setProjectname] = useState('');
   const [description, setDescription] = useState('');
 
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    setProjectname(e.target.value);
   };
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
 
-  const handleCreateProject = (e) => {
+  const handleCreateProject = async (e) => {
     e.preventDefault();
+  
+    try {
+      const response = await axios.post(
+        'http://192.168.0.200:8080/project/createproject/',
+        {
+          username,
+          projectname,
+          description,
+        }
+      );
+      if (response.status === 201) {
+        alert('The project was successfully created.');
+        setModalIsOpen(false);
+        document.body.style.overflowY = 'auto';
+      }
+    } catch (error) {
+      console.error('There was an error!', error);
+    }
+    console.log(username);
+    console.log(projectname);
+    console.log(description);
   };
+  
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -32,17 +57,18 @@ function CreateProjectBox() {
     document.body.style.overflowY = "auto";
   };
 
+
   return (
     <>
         <BootstrapHead/>
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className={styles.createProjectBox}>
             {/* 이름 입력받기 */}
-            <div>name</div>
+            <div>projectname</div>
             <div>
               <input
                 className={styles.input}
-                id="name"
-                value={name}
+                id="projectname"
+                value={projectname}
                 pattern="^[a-zA-Z0-9ㄱ-힣]+"
                 onChange={handleNameChange}
                 required
@@ -63,8 +89,8 @@ function CreateProjectBox() {
             </div>
             {/* 줄 사이 공백 */}
             <div className={styles.space}></div>
-            {/* 로그인하는 버튼 */}
-            <button type="submit" className={styles.createButton} onClick={closeModal}>Create Project</button>
+            {/* 프로젝트 생성 버튼 */}
+            <button type="submit" className={styles.createButton} onClick={handleCreateProject}>Create Project</button>
         </Modal>
         <div className={styles.container}>
             <div className={styles.leftContent}>
