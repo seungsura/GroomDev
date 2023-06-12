@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Projectbox from "../components/Projectbox";
 import CreateProjectBox from "../components/CreateProjectBox";
+import React from 'react';
 
 function main() {
 

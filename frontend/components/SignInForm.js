@@ -56,6 +56,7 @@ function SignInForm() {
       if (res.status === 200) {
         alert('로그인에 성공했습니다!');
         Cookies.set('isLoggedIn', 'true');
+        Cookies.set('username', username);
         router.push('/main');
       } else {
         alert('로그인 요청이 실패했습니다. 다시 시도해 주세요.');

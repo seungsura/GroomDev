@@ -3,7 +3,7 @@ import styles from '../styles/Projectbox.module.css';
 import BootstrapHead from "../components/BootstrapHead";
 
 const projectbox = () => {
-
+  
   return (
     <>
       <BootstrapHead />
