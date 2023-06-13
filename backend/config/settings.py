@@ -180,7 +180,13 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
+<<<<<<< HEAD
     'http://192.168.0.200',
+=======
+    'http://192.168.0.26',
+    'http://gosu.digital',
+    'http://gosu.digital:8080',
+>>>>>>> b296dd266d65b004f39b9bf9a3dc6dd12a3f2799
 
     'http://192.168.0.200:3000',
     'http://192.168.0.200:8080',
@@ -192,7 +198,13 @@ CORS_ORIGIN_WHITELIST = (
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',
     'http://localhost:3000',
+<<<<<<< HEAD
     'http://192.168.0.200:8080',
+=======
+    'http://192.168.0.26:8080',
+    'http://gosu.digital:8080',
+
+>>>>>>> b296dd266d65b004f39b9bf9a3dc6dd12a3f2799
 ]
 
 #CORS_ORIGIN_ALLOW_ALL = True  #<- 수정필요  

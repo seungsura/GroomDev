@@ -14,6 +14,7 @@ export default function SignUpForm() {
 
     try {
       const response = await axios.post('http://192.168.0.200:8080/api/register/', {
+
           username,
           password,
           name,
