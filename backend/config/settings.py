@@ -24,7 +24,7 @@ SECRET_KEY = 'your_secret_key'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 14
 
 # HTTPS 연결을 통해만 세션 쿠키를 전송
-SESSION_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
 
 # JavaScript에서 접근하지 못하도록 세션 쿠키에 HttpOnly 속성 추가
 SESSION_COOKIE_HTTPONLY = True
@@ -52,6 +52,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -67,8 +68,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # local
-    'Groomusers.apps.GroomusersConfig'
-    
+    'Groomusers.apps.GroomusersConfig',
+    'Projectinfo.apps.ProjectinfoConfig',
 ]
 
 MIDDLEWARE = [
@@ -179,10 +180,10 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
-    'http://192.168.0.26',
+    'http://192.168.0.200',
 
-    'http://192.168.0.26:3000',
-    'http://192.168.0.26:8080',
+    'http://192.168.0.200:3000',
+    'http://192.168.0.200:8080',
 
     #'https://your_domain.com',  #edit after get domain name
     # add more if needed
@@ -191,7 +192,7 @@ CORS_ORIGIN_WHITELIST = (
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',
     'http://localhost:3000',
-    'http://192.168.0.26:8080',
+    'http://192.168.0.200:8080',
 ]
 
 #CORS_ORIGIN_ALLOW_ALL = True  #<- 수정필요  
