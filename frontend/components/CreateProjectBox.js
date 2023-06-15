@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-function CreateProjectBox() {
+function CreateProjectBox({ getProjects }) {
   const username = Cookies.get("username");
   const [projectname, setProjectname] = useState('');
   const [description, setDescription] = useState('');
@@ -20,10 +20,10 @@ function CreateProjectBox() {
 
   const handleCreateProject = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await axios.post(
-        'http://192.168.0.200:8080/project/createproject/',
+        'http://192.168.45.134:8080/project/createproject/',
         {
           username,
           projectname,
@@ -34,13 +34,17 @@ function CreateProjectBox() {
         alert('The project was successfully created.');
         setModalIsOpen(false);
         document.body.style.overflowY = 'auto';
+        getProjects();
       }
     } catch (error) {
-      console.error('There was an error!', error);
+      // 동일한 이름의 projectname을 입력했을 때 에러 반환
+      if (error.response && error.response.data && error.response.data.error === 'Project with the same username and projectname already exists') {
+        alert('Project with the same username and projectname already exists.');
+      } else {
+        console.error('There was an error!', error);
+        alert('There was an error while creating the project.');
+      }
     }
-    console.log(username);
-    console.log(projectname);
-    console.log(description);
   };
   
 
@@ -94,7 +98,7 @@ function CreateProjectBox() {
         </Modal>
         <div className={styles.container}>
             <div className={styles.leftContent}>
-                <h5 className={styles.aboveTitle}>Hello userID</h5>
+                <h5 className={styles.aboveTitle}>Hello {username}</h5>
                 <h2 className={styles.title}>Dev Team Projects</h2>
             </div>
             <button className={styles.button} onClick={openModal}>Create Project</button>

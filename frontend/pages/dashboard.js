@@ -8,7 +8,7 @@ function Dashboard() {
     const checkAuthentication = async () => {
       try {
         // 인증 여부를 확인하기 위한 API 호출
-        const response = await fetch('http://gosu.digital:8080/api/check-authentication', {
+        const response = await fetch('http://192.168.45.134:8080/api/check-authentication', {
           method: 'GET',
           credentials: 'include', // 쿠키 정보를 전송하기 위해 설정합니다.
         });

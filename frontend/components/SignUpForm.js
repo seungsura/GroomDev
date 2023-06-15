@@ -13,8 +13,7 @@ export default function SignUpForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://192.168.0.200:8080/api/register/', {
-
+      const response = await axios.post('http://192.168.45.134:8080/api/register/', {
           username,
           password,
           name,
