@@ -1,22 +1,51 @@
+import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar";
 import Projectbox from "../components/Projectbox";
 import CreateProjectBox from "../components/CreateProjectBox";
-import React from 'react';
+import axios from "axios";
+import Cookies from "js-cookie";
 
-function main() {
+function Main() {
+  const [username, setUsername] = useState(null);
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const username = Cookies.get("username");
+    setUsername(username);
+
+    if (username) {
+      getProjects(username);
+    }
+  }, []);
+
+  const getProjects = (username) => {
+    axios.post('http://192.168.45.134:8080/project/getproject/', 
+    { username: username })
+      .then(response => {
+        setProjects(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching projects:', error);
+      });
+  };
 
   return (
     <div>
-        {/* 내비바 */}
-        <Navbar />
-        {/* 프로젝트 생성 박스 */}
-        <CreateProjectBox />
-        {/* 프로젝트 박스 */}
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
-        <Projectbox key={index} />
-        ))}
+      <Navbar />
+      {username && <CreateProjectBox getProjects={() => getProjects(username)} />}
+      {projects.length > 0 ? (
+        projects.map(content => (
+          <Projectbox
+            key={content.id}
+            projectname={content.projectname}
+            description={content.description}
+          />
+        ))
+      ) : (
+        <p>No projects found.</p>
+      )}
     </div>
   );
 }
 
-export default main;
+export default Main;

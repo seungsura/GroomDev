@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import styles from '../styles/Projectbox.module.css';
-import BootstrapHead from "../components/BootstrapHead";
+import BootstrapHead from "./BootstrapHead";
 
-const projectbox = () => {
+const projectbox = ({ projectname, description }) => {
   
   return (
     <>
@@ -10,7 +9,7 @@ const projectbox = () => {
     <div className={styles.box}>
 
       <div className={styles['top-box']}>
-        <div className={styles.title}>ProjectName</div>
+        <div className={styles.title}>{projectname}</div>
       </div>
 
       <div className={styles['middle-box']}>
@@ -18,7 +17,7 @@ const projectbox = () => {
       </div>
 
       <div className={styles['bottom-box']}>
-        <div className={styles.description}>Description: MSA project </div>
+        <div className={styles.description}>Description: {description} </div>
       </div>
 
     </div>

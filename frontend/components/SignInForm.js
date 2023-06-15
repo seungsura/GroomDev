@@ -21,7 +21,7 @@ function SignInForm() {
   const router = useRouter();
 
   useEffect(() => {
-    axios.get('http://gosu.digital:8080/api/check_authentication/')
+    axios.get('http://192.168.45.134:8080/api/check_authentication/')
       .then(res => {
         if (res.status === 200) {
           alert('이미 로그인된 상태입니다.');
@@ -48,7 +48,7 @@ function SignInForm() {
   const handleSignIn = (e) => {
     e.preventDefault();
 
-    axios.post('http://gosu.digital:8080/api/login/', { // Django 로그인 API 엔드포인트로 수정하세요.
+    axios.post('http://192.168.45.134:8080/api/login/', { // Django 로그인 API 엔드포인트로 수정하세요.
       username,
       password
     })
