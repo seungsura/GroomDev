@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from '../styles/Appbox.module.css';
 import BootstrapHead from "../components/BootstrapHead";
 
-const appbox = () => {
+const Appbox = ({ appname, appDescription }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const boxes = ['BUILD', 'DEPLOY', 'GITLAB', 'JENKINS', 'ARGO'];
 
@@ -12,11 +12,11 @@ const appbox = () => {
     <div className={styles.box}>
 
       <div className={styles['top-box']}>
-        <div className={styles.title}>ProjectName</div>
+        <div className={styles.title}>{appname}</div>
       </div>
 
       <div className={styles['middle-box']}>
-        <div className={styles.description}>Description ex : app </div>
+        <div className={styles.description}>Description: {appDescription} </div>
       </div>
 
       <div className={styles['bottom-box']}>
@@ -37,4 +37,4 @@ const appbox = () => {
     </>
   );
 }
-export default appbox;
+export default Appbox;

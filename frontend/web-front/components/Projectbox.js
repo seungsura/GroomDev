@@ -1,31 +1,15 @@
 import styles from '../styles/Projectbox.module.css';
 import BootstrapHead from "./BootstrapHead";
-import { useRouter } from 'next/router';
 import Cookies from "js-cookie";
-import axios from "axios";
+import Applist from "../pages/applist";
 
 const projectbox = ({ projectname, description }) => {
   const username = Cookies.get("username");
-  const router = useRouter();
 
-  const openAppList = async (e) => {
-
-    try {
-      const response = await axios.post(
-        'http://192.168.45.134:8080/app/createapp/',
-        {
-          username,
-          projectname,
-        }
-      );
-      if (response.status === 200) {
-        router.push('/applist');
-      }
-    } catch (error) {
-      console.error('There was an error!', error);
-    }
+  const openAppList = () => {
+    return <Applist username={username} projectname={projectname} />;
   };
-  
+
 
   return (
     <>
