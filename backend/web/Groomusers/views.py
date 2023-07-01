@@ -52,6 +52,7 @@ class LoginView(APIView):
         login(request, user)
         response = Response({"success": f"User {username} logged in"}, status=status.HTTP_200_OK)
         response.set_cookie('isLoggedIn', 'true', httponly=True)
+        response.set_cookie('username', username, httponly=True)
 
         return response
 
@@ -63,6 +64,7 @@ class LogoutView(APIView):
         logout(request)
         response = Response("Logout successfully", status=status.HTTP_200_OK)
         response.delete_cookie('isLoggedIn')
+        response.delete_cookie('username')
         return response
 
 # 인증 확인 뷰
